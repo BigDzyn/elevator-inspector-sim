@@ -469,6 +469,15 @@ function openPdfModal(path, title) {
   loadPdfDocument(path);
 }
 
+function openReference(path, title) {
+  if (/^https?:\/\//i.test(path)) {
+    window.open(path, "_blank", "noopener,noreferrer");
+    return;
+  }
+
+  openPdfModal(path, title);
+}
+
 function closePdfModal() {
   elements.pdfModal.classList.remove("active");
   elements.pdfModal.setAttribute("aria-hidden", "true");
@@ -609,7 +618,7 @@ elements.resumeExam.addEventListener("click", () => {
 });
 elements.referenceLinks.forEach((link) => {
   link.addEventListener("click", () => {
-    openPdfModal(link.dataset.pdf, link.dataset.title);
+    openReference(link.dataset.pdf, link.dataset.title);
   });
 });
 elements.closePdfModal.addEventListener("click", closePdfModal);
